@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#my_form").submit(function(event){
+		var member = $("#my_form").serializeArray(); //객체가 된 상태
+		var str = $.param(member);
+		console.log(str);
+		var url = "/ActionWithData?"+str;
+		$("#wrap").load(url);
+// 		$.ajax("/ActionWithData",{data.member, success:function(r){
+// 			$("#wrap").html(r);
+// 		}});
+		event.preventDefault;
+	
+	});
+	
+});
+</script>
+</head>
+<body>
+	<form action="login.do" method="post" id="my_form">
+		<table>
+		<tr>
+			<td><label for="name">Name</label></td>
+			<td><input type="text" id="name" name="name"></td>
+		</tr>
+		<tr>
+			<td><label for="age">Age</label></td>
+			<td><input type="text" id="age" name="age"></td>
+		</tr>
+		</table>
+		<input type="submit" value="Get Ajax String">
+	</form>
+	<div id="wrap"></div>
+</body>
+</html>

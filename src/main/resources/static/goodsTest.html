@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<style type="text/css">
+*{
+	margin: 0px;
+	padding: 0px;
+}
+
+#wrap{
+	overflow: hidden;
+}
+
+.item{
+	margin: 5px;
+	padding: 5px;
+	width: 300px;
+	height: 150px;
+	float: left;
+	
+	border: 3px solid gray;
+	border-radius: 10px;
+}
+
+ul{
+	overflow: hidden;
+}
+
+li{
+	float: left;
+	list-style: none;
+	padding: 10px;
+	cursor: pointer;
+}
+
+</style>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var arr ;
+		var totalRecord=0;
+		var totalPage=1;
+		var pageSize=6;
+		
+		function printPage(){
+			//페이지 번호 출력
+			for(var i=1; i<=totalPage;i++){
+				var li = $("<li></li>").html(i);
+				$(li).click(function(){
+					var pageNum = Number($(this).text());
+					printGoods(pageNum);
+				});
+				$(".paging_button").append(li);
+				
+				
+			}	
+		}
+			function printGoods(pageNum){
+			//상품출력
+			$("#wrap").empty();
+			var start = (pageNum-1)*pageSize+1;
+			var end = start + pageSize-1;
+			if(end > totalRecord){
+				end = totalRecord;
+			}
+			
+			for(var i=start; i<=end; i++){
+				var g = arr[i-1];
+				var div = $("<div></div>").addClass("item");
+				var item = $("<h5></h5>").html(g.item);
+				var img = $("<img></img>").attr({"src":"img/"+g.fname,width:50,height:50});
+				var qty = $("<p></p>").html(g.qty);
+				var price = $("<p></p>").html(g.price);
+				var detail = $("<p></p>").html(g.detail);
+				
+				$(div).append(item,img,qty,price,detail);
+				$("#wrap").append(div);
+			}
+		}
+		
+		
+		
+		$.getJSON("goodsList",function(data){
+			arr = data;
+			totalRecord= arr.length;
+			totalPage = Math.ceil(totalRecord/pageSize);
+			
+			printPage();
+			printGoods(1);
+			
+		});		
+	});
+
+</script>
+</head>
+<body>	
+	<ul class="paging_button"></ul>
+	<div id="wrap"></div>
+	<ul class="paging_button"></ul>
+
+</body>
+</html>

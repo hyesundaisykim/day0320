@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.min.css">
+<style type="text/css">
+	body{
+		font-size: 62.5%;
+	}
+	
+	h1{
+		text-align: center;
+	}
+	
+	input[type=text],label{
+		margin-bottom: 12px;
+		padding: .4em;
+		width: 95%;
+	}
+</style>
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	
+	$("#open_button").click(function(){
+		$("#dialog").dialog('open');
+	});
+	
+	$("#dialog").dialog({
+		autoOpen:false,
+		modal:true, 
+		buttons:{
+			sumbit:function(){
+				var event_name= $("#event_name").val();
+				var event_date= $("#event_date").val();
+				$("#output").append( $("<h1></h1>").html(event_name + ":" +event_date )   );
+				$("#event_name").val("");
+				$("#event_date").val("");
+				$("#dialog").dialog('close');
+			},
+			reset:function(){
+				$("#event_name").val("");
+				$("#event_date").val("");
+			},
+			cancel:function(){
+				$("#event_name").val("");
+				$("#event_date").val("");
+				$("#dialog").dialog('close');
+			}
+		}
+	});
+	$("#event_date").datepicker({
+		numberOfMonths:3,
+		dateFormat:"yy년 mm월 dd일"
+	});
+	
+})
+</script>
+</head>
+<body>
+	<h1 id="open_button">일정 생성</h1>
+	<hr>
+	<div id="output"></div>
+	<div id="dialog" title="일정등록">
+		<h1>일정 등록</h1>
+		<label for="event_name">일정이름</label>
+		<input type="text" id="event_name">
+		<label for="event_date">날짜</label>
+		<input type="text" id="event_date">
+	</div>
+</body>
+</html>
