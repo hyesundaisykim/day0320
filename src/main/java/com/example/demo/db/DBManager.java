@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import com.example.demo.vo.BookVo;
 import com.example.demo.vo.CartVo;
 import com.example.demo.vo.ChatVo;
 import com.example.demo.vo.GoodsVo;
@@ -82,6 +83,39 @@ public class DBManager {
 		r = session.selectOne("member.isMember", m);
 		session.close();
 		return r;
+	}
+	public static List<BookVo> listBook(){
+		SqlSession session = factory.openSession();
+		List<BookVo> list = session.selectList("book.selectAll");
+		session.close();
+		return list;
+	}
+	
+	public static int insertBook(BookVo b) {
+		int re = -1;
+		SqlSession session = factory.openSession();
+		session.insert("book.insert", b);
+		session.commit();
+		session.close();
+		return re;
+	}
+	
+	public static int updateBook(BookVo b) {
+		int re = -1;
+		SqlSession session = factory.openSession();
+		session.update("book.update", b);
+		session.commit();
+		session.close();
+		return re;
+	}
+	
+	public static int deleteBook(BookVo b) {
+		int re = -1;
+		SqlSession session = factory.openSession();
+		session.delete("book.delete", b);
+		session.commit();
+		session.close();
+		return re;
 	}
 	
 	

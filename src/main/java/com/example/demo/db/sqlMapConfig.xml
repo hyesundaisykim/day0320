@@ -5,6 +5,8 @@
 <configuration>
 <properties resource="com/example/demo/db/db.properties" />
 <typeAliases>
+	<typeAlias type="com.example.demo.vo.BookVo" alias="bookVo"/>
+	<typeAlias type="com.example.demo.vo.MemberVo" alias="memberVo"/>
 	<typeAlias type="com.example.demo.vo.MemberVo" alias="memberVo"/>
 	<typeAlias type="com.example.demo.vo.CartVo" alias="cartVo"/>
 	<typeAlias type="com.example.demo.vo.GoodsVo" alias="goodsVo"/>
@@ -23,6 +25,7 @@
     </environment>
   </environments>
   <mappers>
+    <mapper resource="com/example/demo/db/BookMapper.xml"/>
     <mapper resource="com/example/demo/db/MemberMapper.xml"/>
     <mapper resource="com/example/demo/db/CartMapper.xml"/>
     <mapper resource="com/example/demo/db/GoodsMapper.xml"/>
